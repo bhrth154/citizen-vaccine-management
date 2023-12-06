@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
@@ -23,11 +24,13 @@ public class MyDAOImpl implements MyDAO {
 
 
 	@Override
+	@Transactional
 	public void save(Vaccine theVaccine) {
 		// TODO Auto-generated method stub
 		Session currentSession = entityManager.unwrap(Session.class);
-		
+
 		currentSession.save(theVaccine);
+		currentSession.clear();
 	}
 
 	
@@ -39,7 +42,7 @@ public class MyDAOImpl implements MyDAO {
 		Query theQuery = currentSession.createQuery("from Vaccine", Vaccine.class);
 		
 		List<Vaccine> vaccine = theQuery.getResultList();
-		
+		currentSession.clear();
 		return vaccine;
 	}
 
@@ -54,7 +57,7 @@ public class MyDAOImpl implements MyDAO {
 		theQuery.setParameter("stat", status);
 		
 		List<Vaccine> vaccines = theQuery.getResultList();
-		
+		currentSession.clear();
 		return vaccines;
 	}
 
@@ -64,12 +67,12 @@ public class MyDAOImpl implements MyDAO {
 		// TODO Auto-generated method stub
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		String hql = "SELECT v.id, v.name, v.status FROM Vaccine v ORDER BY v.status,v.id";
+		String hql = "FROM Vaccine v ORDER BY v.status,v.id";
 		
-		Query theQuery = currentSession.createQuery(hql);
+		Query theQuery = currentSession.createQuery(hql, Vaccine.class);
 		
 		List<Vaccine> result = theQuery.getResultList();
-		
+		currentSession.clear();
 		return result;
 	}
 
@@ -79,12 +82,12 @@ public class MyDAOImpl implements MyDAO {
 		// TODO Auto-generated method stub
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		String hql = "SELECT v.id, v.name,v.vaccine FROM Vaccine v ORDER BY v.vaccine,v.id";
+		String hql = "FROM Vaccine v ORDER BY v.vaccine,v.id";
 		
-		Query theQuery = currentSession.createQuery(hql);
+		Query theQuery = currentSession.createQuery(hql, Vaccine.class);
 		
 		List<Vaccine> result = theQuery.getResultList();
-		
+		currentSession.clear();
 		return result;
 	}
 
@@ -99,7 +102,7 @@ public class MyDAOImpl implements MyDAO {
 		Query theQuery = currentSession.createQuery(hql);
 		
 		List<Vaccine> result = theQuery.getResultList();
-		
+		currentSession.clear();
 		return result;
 	}
 
@@ -110,7 +113,7 @@ public class MyDAOImpl implements MyDAO {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		Vaccine vaccine = currentSession.get(Vaccine.class, theId);
-		
+		currentSession.clear();
 		return vaccine;
 	}
 
@@ -125,12 +128,13 @@ public class MyDAOImpl implements MyDAO {
 		theQuery.setParameter("v",0);
 		
 		List<Vaccine> vaccines = theQuery.getResultList();
-		
+		currentSession.clear();
 		return vaccines;
 	}
 
 
 	@Override
+	@Transactional
 	public void updateVaccination(long id, String city, String vaccine,Date date) {
 		// TODO Auto-generated method stub
 
@@ -143,40 +147,41 @@ public class MyDAOImpl implements MyDAO {
         	theVaccine.setStatus("vaccinated partially");
         	theVaccine.setCount(1);
         	theVaccine.setVaccine(vaccine);
-        	theVaccine.setCity1(city);
-        	theVaccine.setDate1(date);
+        	theVaccine.setCity_one(city);
+        	theVaccine.setDate_one(date);
         }
         else if(theVaccine.getCount()==1)
         {
         	theVaccine.setStatus("vaccinated fully");
         	theVaccine.setCount(2);
-        	theVaccine.setCity2(city);
-        	theVaccine.setDate2(date);
+        	theVaccine.setCity_two(city);
+        	theVaccine.setDate_two(date);
         }
         else if(theVaccine.getCount()==2)
         {
         	theVaccine.setStatus("completed booster");
         	theVaccine.setCount(3);
-        	theVaccine.setCity3(city);
+        	theVaccine.setCity_three(city);
         	theVaccine.setBooster(date);
         }
         
         currentSession.update(theVaccine);
-
-		
+		currentSession.clear();
 	}
 
 
 	@Override
+	@Transactional
 	public void updateDetails(Vaccine theVaccine) {
 		// TODO Auto-generated method stub
 		Session currentSession = entityManager.unwrap(Session.class);
-		
 		currentSession.update(theVaccine);
+		currentSession.clear();
 	}
 
 
 	@Override
+	@Transactional
 	public void deleteFully() {
 		// TODO Auto-generated method stub
 		Session currentSession = entityManager.unwrap(Session.class);
@@ -188,11 +193,13 @@ public class MyDAOImpl implements MyDAO {
 		theQuery.setParameter("c", c); 
 		
 		theQuery.executeUpdate();
-		
+
+		currentSession.clear();
 	}
 
 
 	@Override
+	@Transactional
 	public void deleteById(long theId) {
 		// TODO Auto-generated method stub
 		Session currentSession = entityManager.unwrap(Session.class);
@@ -205,7 +212,7 @@ public class MyDAOImpl implements MyDAO {
 		
 		theQuery.executeUpdate();
 
-		
+		currentSession.clear();
 	}
 
 }

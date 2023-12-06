@@ -1,27 +1,30 @@
 package com.example.ctznvacc.MyCitizenVaccineREST.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SecondaryTable;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name="ctzn")
-@SecondaryTable(name ="vacc", pkJoinColumns = @PrimaryKeyJoinColumn(name ="id"))
+@Table(name="citizen")
+@SecondaryTable(name ="vaccine", pkJoinColumns = @PrimaryKeyJoinColumn(name ="id"))
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Vaccine {
 	@Id
 	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
 	@Column(name="name")
 	private String name;
 	
-	@Column(name="adhar",unique=true)
-	private long adhar;
+	@Column(name="aadhaar",unique=true)
+	private long aadhaar;
 	
 	@Column(name="gender")
 	private String gender;
@@ -35,180 +38,39 @@ public class Vaccine {
 	@Column(name="status")
 	private String status;
 	
-	@Column(name="count",table="vacc")
+	@Column(name="count",table="vaccine")
 	private int count;
 	
-	@Column(name="vaccine",table="vacc")
+	@Column(name="vaccine",table="vaccine")
 	private String vaccine;
 	
-	@Column(name="dose1",table="vacc")
-	private Date date1;
+	@Column(name="dose_one",table="vaccine")
+	private Date date_one;
 	
-	@Column(name="dose2",table="vacc")
-	private Date date2;
+	@Column(name="dose_two",table="vaccine")
+	private Date date_two;
 	
-	@Column(name="booster",table="vacc")
+	@Column(name="booster",table="vaccine")
 	private Date booster;
 	
-	@Column(name="city1",table="vacc")
-	private String city1;
+	@Column(name="city_one",table="vaccine")
+	private String city_one;
 	
-	@Column(name="city2",table="vacc")
-	private String city2;
+	@Column(name="city_two",table="vaccine")
+	private String city_two;
 	
-	@Column(name="city3",table="vacc")
-	private String city3;
+	@Column(name="city_three",table="vaccine")
+	private String city_three;
 
-	public Vaccine() {
-		// TODO Auto-generated constructor stub
+	public void setVaccineDetails(Vaccine vaccine) {
+		this.setCity_one(vaccine.getCity_one());
+		this.setCity_two(vaccine.getCity_two());
+		this.setCity_three(vaccine.getCity_three());
+		this.setDate_one(vaccine.getDate_one());
+		this.setDate_two(vaccine.getDate_two());
+		this.setBooster(vaccine.getBooster());
+		this.setCount(vaccine.getCount());
+		this.setStatus(vaccine.getStatus());
+		this.setVaccine(vaccine.getVaccine());
 	}
-
-	public Vaccine(long id, String name, long adhar, String gender, int age, long phone, int count, String status,
-			String vaccine, Date date1, Date date2, Date booster, String city1, String city2, String city3) {
-		this.id = id;
-		this.name = name;
-		this.adhar = adhar;
-		this.gender = gender;
-		this.age = age;
-		this.phone = phone;
-		this.count = count;
-		this.status = status;
-		this.vaccine = vaccine;
-		this.date1 = date1;
-		this.date2 = date2;
-		this.booster = booster;
-		this.city1 = city1;
-		this.city2 = city2;
-		this.city3 = city3;
-	}
-
-	@Override
-	public String toString() {
-		return "Vaccine [id=" + id + ", name=" + name + ", adhar=" + adhar + ", gender=" + gender + ", age=" + age
-				+ ", phone=" + phone + ", count=" + count + ", status=" + status + ", vaccine=" + vaccine + ", date1="
-				+ date1 + ", date2=" + date2 + ", booster=" + booster + ", city1=" + city1 + ", city2=" + city2
-				+ ", city3=" + city3 + "]";
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public long getAdhar() {
-		return adhar;
-	}
-
-	public void setAdhar(long adhar) {
-		this.adhar = adhar;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public long getPhone() {
-		return phone;
-	}
-
-	public void setPhone(long phone) {
-		this.phone = phone;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getVaccine() {
-		return vaccine;
-	}
-
-	public void setVaccine(String vaccine) {
-		this.vaccine = vaccine;
-	}
-
-	public Date getDate1() {
-		return date1;
-	}
-
-	public void setDate1(Date date1) {
-		this.date1 = date1;
-	}
-
-	public Date getDate2() {
-		return date2;
-	}
-
-	public void setDate2(Date date2) {
-		this.date2 = date2;
-	}
-
-	public Date getBooster() {
-		return booster;
-	}
-
-	public void setBooster(Date booster) {
-		this.booster = booster;
-	}
-
-	public String getCity1() {
-		return city1;
-	}
-
-	public void setCity1(String city1) {
-		this.city1 = city1;
-	}
-
-	public String getCity2() {
-		return city2;
-	}
-
-	public void setCity2(String city2) {
-		this.city2 = city2;
-	}
-
-	public String getCity3() {
-		return city3;
-	}
-
-	public void setCity3(String city3) {
-		this.city3 = city3;
-	}
-	
-	
 }

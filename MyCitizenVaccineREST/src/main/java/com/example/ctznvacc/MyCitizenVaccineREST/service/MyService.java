@@ -2,32 +2,34 @@ package com.example.ctznvacc.MyCitizenVaccineREST.service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 
+import com.example.ctznvacc.MyCitizenVaccineREST.POJO.RequestPOJO;
 import com.example.ctznvacc.MyCitizenVaccineREST.entity.Vaccine;
 
 public interface MyService {
 
 	public void save(Vaccine theVaccine);
-	
+
 	public List<Vaccine> findAll();
 
+	public Vaccine findById(String theId);
+
 	public List<Vaccine> findByStatus(String status);
-	
+
 	public List<Vaccine> findByStatus();
- 	
+
+	public List<Vaccine> findWhoVaccinated();
+
 	public List<Vaccine> findByVaccine();
 
 	public List<Vaccine> findCountByVaccine();
-	
-	public Vaccine findById(long theId);
 
-	public List<Vaccine> findWhoVaccinated();
-	
-	public void updateVaccination(long id,String city,String vaccine,Date date);
+	public void updateVaccination(RequestPOJO requestPOJO);
 	
 	public void updateDetails(Vaccine theVaccine);
 	
-	public void deleteFully();
+	public List<Vaccine> deleteFully();
 	
-	public void deleteById(long theId);
+	public Vaccine deleteById(long theId);
 }
