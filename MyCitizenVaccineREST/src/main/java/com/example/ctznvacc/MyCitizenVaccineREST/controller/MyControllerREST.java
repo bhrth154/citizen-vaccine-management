@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ import com.example.ctznvacc.MyCitizenVaccineREST.service.MyService;
 public class MyControllerREST {
 	private MyService theMyService;
 
+	@Autowired
 	public MyControllerREST(MyService theMyService) {
 		this.theMyService = theMyService;
 	}
