@@ -17,11 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ctznvacc.MyCitizenVaccineREST.POJO.RequestPOJO;
 import com.example.ctznvacc.MyCitizenVaccineREST.entity.Vaccine;
-import com.example.ctznvacc.MyCitizenVaccineREST.exception.CitizenNotFoundException;
-import com.example.ctznvacc.MyCitizenVaccineREST.exception.CitizenNotVaccinatedException;
-import com.example.ctznvacc.MyCitizenVaccineREST.exception.NoCitizensFoundException;
-import com.example.ctznvacc.MyCitizenVaccineREST.exception.NotNumberException;
-import com.example.ctznvacc.MyCitizenVaccineREST.exception.UnableToVaccinateException;
 import com.example.ctznvacc.MyCitizenVaccineREST.service.MyService;
 
 @RestController
